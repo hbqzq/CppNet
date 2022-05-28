@@ -39,7 +39,7 @@ public:
 
     void Listen(uint64_t sock, const std::string& ip, uint16_t port);
 
-    void Connect(const std::string& ip, uint16_t port);
+    Handle Connect(const std::string& ip, uint16_t port);
 
     void PostTask(const Task& task);
 

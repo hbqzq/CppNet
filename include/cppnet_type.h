@@ -43,6 +43,7 @@ enum CPPNET_ERROR_CODE {
     CEC_CLOSED                 = 1,    // remote close the socket.
     CEC_CONNECT_BREAK          = 2,    // connect break.
     CEC_CONNECT_REFUSE         = 3,    // remote refuse connect or server not exist.
+    CEC_CREATE_FAILED          = 4,    // failed to create socket
 };
 
 }

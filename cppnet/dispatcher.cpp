@@ -103,21 +103,27 @@ void Dispatcher::Listen(uint64_t sock, const std::string& ip, uint16_t port) {
     }
 }
 
-void Dispatcher::Connect(const std::string& ip, uint16_t port) {
-    auto task = [ip, port, this]() {
-        auto sock = MakeRWSocket();
-        sock->SetDispatcher(shared_from_this());
-        sock->SetEventActions(_event_actions);
-        sock->SetCppNetBase(_cppnet_base.lock());
-        sock->Connect(ip, port);
-    };
+Handle Dispatcher::Connect(const std::string& ip, uint16_t port) {
+    auto sock = MakeRWSocket();
+    sock->SetDispatcher(shared_from_this());
+    sock->SetEventActions(_event_actions);
+    sock->SetCppNetBase(_cppnet_base.lock());
 
     if (std::this_thread::get_id() == _local_thread_id) {
-        task();
+        if (!sock->Connect(ip, port)) {
+            return nullptr;
+        }
 
     } else {
+        auto task = [ip, port, this, sock]() {
+            if (!sock->Connect(ip, port)) {
+                sock->OnConnect(CEC_CREATE_FAILED);
+            };
+        };
         PostTask(task);
     }
+
+    return sock;
 }
 
 void Dispatcher::PostTask(const Task& task) {

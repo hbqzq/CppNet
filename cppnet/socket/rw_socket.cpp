@@ -116,7 +116,7 @@ bool RWSocket::Write(const char* src, uint32_t len) {
     }
 }
 
-void RWSocket::Connect(const std::string& ip, uint16_t port) {
+bool RWSocket::Connect(const std::string& ip, uint16_t port) {
     if (!_event) {
         _event = _alloter->PoolNew<Event>();
         _event->SetSocket(shared_from_this());
@@ -130,7 +130,7 @@ void RWSocket::Connect(const std::string& ip, uint16_t port) {
         auto ret = OsHandle::TcpSocket(use_ipv4);
         if (ret._return_value < 0) {
             LOG_ERROR("create socket failed. error:%d", ret._errno);
-            return;
+            return false;
         }
         _sock = ret._return_value;
     }
@@ -145,6 +145,7 @@ void RWSocket::Connect(const std::string& ip, uint16_t port) {
         __connecting_socket_map[_sock] = shared_from_this();
         actions->AddConnection(_event, _addr);
     }
+    return true;
 }
 
 void RWSocket::Disconnect() {

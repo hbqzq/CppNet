@@ -123,10 +123,9 @@ bool CppNetBase::ListenAndAccept(const std::string& ip, uint16_t port) {
     return true;
 }
 
-bool CppNetBase::Connection(const std::string& ip, uint16_t port) {
+Handle CppNetBase::Connection(const std::string& ip, uint16_t port) {
     uint32_t index = _random->Random();
-    _dispatchers[index]->Connect(ip, port);
-    return true;
+    return _dispatchers[index]->Connect(ip, port);
 }
 
 void CppNetBase::OnTimer(std::shared_ptr<RWSocket> sock) {

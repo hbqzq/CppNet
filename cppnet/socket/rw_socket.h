@@ -38,7 +38,7 @@ public:
 
     virtual void Read();
     virtual bool Write(const char* src, uint32_t len);
-    virtual void Connect(const std::string& ip, uint16_t port);
+    virtual bool Connect(const std::string& ip, uint16_t port);
     virtual void Disconnect();
 
     virtual void AddTimer(uint32_t interval, bool always = false);

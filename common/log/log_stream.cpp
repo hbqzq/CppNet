@@ -3,6 +3,8 @@
 
 // Author: caozhiyi (caozhiyi5@gmail.com)
 
+#include <inttypes.h>
+
 #include "log.h"
 #include "log_stream.h"
 #include "logger_interface.h"
@@ -76,9 +78,9 @@ LogStream& LogStream::operator<<(uint32_t v) {
 LogStream& LogStream::operator<<(int64_t v) {
     CHECK_CONTINUE()
 #ifdef __win__
-    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%I64d", v);
+    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%" PRId64, v);
 #else
-    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%ld", v);
+    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%" PRId64, v);
 #endif
     return *this;
 }
@@ -86,9 +88,9 @@ LogStream& LogStream::operator<<(int64_t v) {
 LogStream& LogStream::operator<<(uint64_t v) {
     CHECK_CONTINUE()
 #ifdef __win__
-    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%I64u", v);
+    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%" PRIu64, v);
 #else
-    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%lu", v);
+    _log->_len += snprintf(_log->_log + _log->_len, __log_block_size - _log->_len, "%" PRIu64, v);
 #endif
     return *this;
 }

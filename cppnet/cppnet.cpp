@@ -88,7 +88,7 @@ void CppNet::SetConnectionCallback(const connect_call_back& cb) {
     _cppnet_base->SetConnectionCallback(cb);
 }
 
-bool CppNet::Connection(const std::string& ip, uint16_t port) {
+Handle CppNet::Connection(const std::string& ip, uint16_t port) {
     return _cppnet_base->Connection(ip, port);
 }
 

@@ -46,7 +46,7 @@ public:
 
     //client
     void SetConnectionCallback(const connect_call_back& cb) { _connect_cb = cb; }
-    bool Connection(const std::string& ip, uint16_t port);
+    Handle Connection(const std::string& ip, uint16_t port);
 
     // call back
     void OnTimer(std::shared_ptr<RWSocket> sock);

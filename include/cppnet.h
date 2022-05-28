@@ -48,7 +48,7 @@ public:
 
     //client
     void SetConnectionCallback(const connect_call_back& cb);
-    bool Connection(const std::string& ip, uint16_t port);
+    Handle Connection(const std::string& ip, uint16_t port);
 
 private:
     std::shared_ptr<CppNetBase> _cppnet_base;
